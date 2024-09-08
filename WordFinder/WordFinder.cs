@@ -51,18 +51,18 @@ namespace WordFinder
                     int occurrences = Regex.Matches(col, $"{wordToFind}").Count;
                     if (occurrences > 0)
                     {
-                        _repeatedWords[wordToFind] = _repeatedWords.ContainsKey(wordToFind) ? _repeatedWords[wordToFind] + occurrences : occurrences;
+                        CheckRepeatedWord(wordToFind, occurrences);
                     }
                 }
             }
-            return _repeatedWords.OrderByDescending(x => x.Value).ToList().Select( w => w.Key).Take(10);
+            return _repeatedWords.OrderByDescending(x => x.Value).ThenBy( x => x.Key).ToList().Select( w => w.Key).Take(10);
         }
 
-        private void CheckRepeatedWord(string word)
+        private void CheckRepeatedWord(string word, int duplicates = 1)
         {
             if (_repeatedWords.ContainsKey(word))
             {
-                _repeatedWords[word] = _repeatedWords[word] + 1;
+                _repeatedWords[word] = _repeatedWords[word] + duplicates;
             }
             else
             {
