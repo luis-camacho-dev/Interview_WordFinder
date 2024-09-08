@@ -24,12 +24,12 @@ namespace WordFinder
         {
             for(int i = 0; i< _rows.Count; i++)
             {
-                string column = string.Empty;
+                var column = new StringBuilder();
                 for(int j = 0; j < _rows[i].Length; j++)
                 {
                     column.Append(_rows[j][i]);
                 }
-                _cols.Add(column);
+                _cols.Add(column.ToString());
             }
         }
 
