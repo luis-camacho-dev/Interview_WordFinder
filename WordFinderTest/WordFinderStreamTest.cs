@@ -13,7 +13,11 @@ namespace WordFinderTest
             matrix.Add("pqnsd");
             matrix.Add("uvdxy");
             var wordFinder = new WordFinder.WordFinder(matrix);
-            Assert.AreEqual<int>(3, wordFinder.Find(new List<string> { "chill", "cold", "wind", "snow" }).Count());
+            var mostRepeatedWords = wordFinder.Find(new List<string> { "chill", "cold", "wind", "snow" });
+            Assert.AreEqual<int>(3, mostRepeatedWords.Count());
+            Assert.IsTrue(mostRepeatedWords.Contains("chill"));
+            Assert.IsTrue(mostRepeatedWords.Contains("cold"));
+            Assert.IsTrue(mostRepeatedWords.Contains("wind"));
         }
 
         [TestMethod]
@@ -46,7 +50,9 @@ namespace WordFinderTest
                 "abcdctestrtrttestcvctest",
             };
             var wordFinder = new WordFinder.WordFinder(matrix);
-            Assert.AreEqual<int>(0, wordFinder.Find(new List<string> { "winner", "childrend", "lazy", "counter"}).Count());  
+            var mostRepeatedWords = wordFinder.Find(new List<string> { "winner", "childrend", "lazy", "counter" });
+            Assert.AreEqual<int>(0, mostRepeatedWords.Count());
+            Assert.IsFalse(mostRepeatedWords.Any());
         }
 
         [TestMethod]
