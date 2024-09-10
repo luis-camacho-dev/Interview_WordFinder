@@ -20,19 +20,11 @@ namespace WordFinder
             FillColumns();
         }
 
-        private void FillColumns()
-        {
-            for(int i = 0; i< _rows.Count; i++)
-            {
-                var column = new StringBuilder();
-                for(int j = 0; j < _rows[i].Length; j++)
-                {
-                    column.Append(_rows[j][i]);
-                }
-                _cols.Add(column.ToString());
-            }
-        }
-
+        /// <summary>
+        /// Find the most 10 repeated Words.
+        /// </summary>
+        /// <param name="wordsStream"></param>
+        /// <returns></returns>
         public IEnumerable<string> Find(IEnumerable<string> wordsStream)
         {
             _repeatedWords.Clear();
@@ -58,6 +50,27 @@ namespace WordFinder
             return _repeatedWords.OrderByDescending(x => x.Value).ThenBy( x => x.Key).ToList().Select( w => w.Key).Take(10);
         }
 
+        /// <summary>
+        /// Fills all Columns in Y positions
+        /// </summary>
+        private void FillColumns()
+        {
+            for (int i = 0; i < _rows.Count; i++)
+            {
+                var column = new StringBuilder();
+                for (int j = 0; j < _rows[i].Length; j++)
+                {
+                    column.Append(_rows[j][i]);
+                }
+                _cols.Add(column.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Checks if exists repeat words to increase the Counter.
+        /// </summary>
+        /// <param name="word"></param>
+        /// <param name="duplicates"></param>
         private void CheckRepeatedWord(string word, int duplicates = 1)
         {
             if (_repeatedWords.ContainsKey(word))
